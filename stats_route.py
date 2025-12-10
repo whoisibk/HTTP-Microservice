@@ -1,9 +1,9 @@
 from fastapi import APIRouter
-from metrics import metrics
 
 router = APIRouter()
 
 
 @router.get("/stats")
 def stats():
+    from metrics import metrics
     return metrics
