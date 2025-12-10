@@ -26,6 +26,8 @@ def test1(request: Request):
                 "IP Address": client_host,
                 "Number of Requests": user["total_requests"],
                 "No. of Tokens Available": user["curr_tokens"],
+                "Timestamp": user["last_refill_time"].strftime("%H:%M:%S"),
+                "Status_Code": 200,
             }
 
 
