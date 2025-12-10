@@ -1,5 +1,4 @@
-from fastapi import FastAPI, HTTPException, Request
-from stats_route import router as stats_router
+from fastapi import FastAPI, Request
 from user_tokenBucket import metric
 
 api = FastAPI()
