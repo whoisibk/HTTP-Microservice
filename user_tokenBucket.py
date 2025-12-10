@@ -10,14 +10,13 @@ def metric(client_host: str):
 
     if client_host not in buckets:
         buckets[client_host] = {
-            # "Total Requests Made": total_requests,
-            # "Test 1 Requests": test1_requests,
-            # "Test 2 Requests": test2_requests,
-            # "Test 3 Requests": test3_requests,
-            "tokens": 5,
+
+            "curr_tokens": 5,
             "last_refill_time": datetime.strptime(
                 str(datetime.now().time())[:-7], "%H:%M:%S"
             ),
+            "rate_limited_requests": 0,
+            "total_requests": 0,
         }
     else:
         for bucket in buckets:
