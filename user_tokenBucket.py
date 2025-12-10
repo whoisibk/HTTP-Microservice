@@ -1,7 +1,6 @@
 from datetime import datetime
 
 
-
 def metric(client_host: str):
     max_tokens = 5
     token_refill_rate = 1  # tokens per second
@@ -10,7 +9,6 @@ def metric(client_host: str):
 
     if client_host not in buckets:
         buckets[client_host] = {
-
             "curr_tokens": 5,
             "last_refill_time": datetime.strptime(
                 str(datetime.now().time())[:-7], "%H:%M:%S"
@@ -25,7 +23,7 @@ def metric(client_host: str):
                     str(datetime.now().time())[:-7], "%H:%M:%S"
                 )
 
-                elapsed_seconds:float = (
+                elapsed_seconds: float = (
                     current_time - datetime(client_host["last_refill_time"])
                 ).total_seconds()
 
