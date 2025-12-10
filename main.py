@@ -9,18 +9,24 @@ api = FastAPI()
 def test1(request: Request):
 
     client_host = request.client.host
-    buckets = metric(client_host=client_host)
+    buckets: dict = metric(client_host=client_host)
 
-    for bucket in buckets:
-        if bucket == client_host:
-            client_host["total_requests"] += 1
+    for ip in buckets:
+        if ip == client_host:
+            user = buckets[ip]
 
-            if client_host["curr_tokens"] < 1:
-                client_host["rate_limited_requests"] += 1
-                return {"Too many requests"}
+            user["total_requests"] += 1
 
-            client_host["curr_tokens"] -= 1
-            return {"This is the first test!"}
+            if user["curr_tokens"] < 1:
+                user["rate_limited_requests"] += 1
+                return {"message": "Too many requests"}
+
+            user["curr_tokens"] -= 1
+            return {
+                "IP Address": client_host,
+                "Number of Requests": user["total_requests"],
+                "No. of Tokens Available": user["curr_tokens"],
+            }
 
 
-api.include_router(stats_router)
+# api.include_router(stats_router)
